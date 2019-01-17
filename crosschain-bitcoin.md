@@ -42,21 +42,50 @@ $ cd wanx
 $ npm install
 $ npm install keythereum node-bitcoin-rpc wanchainjs-tx
 ```
-3. Copy and edit Bitcoin inbound example
+
+## Run bitcoin inbound example
+
+1. Copy and edit Bitcoin inbound example
 ```
 $ cd examples
 $ cp btc2wbtc-complete-manual.js btc2wbtc-test.js
 $ vi btc2wbtc-test.js
 ```
-4. Update example script with correct values
-- line 18: confirmed wanchain node ip/port are correct
+2. Update example script with correct values
+- line 18: confirm wanchain node ip and port are correct
 - line 23: update with the bitcoin RPC rpcuser/rpcpassword
-- line 36: update with revoker bitcoin address (can be any legacy address, even with 0 balance)
+- line 36: update with revoker bitcoin address (legacy address only, but 0 balance is okay)
 - line 37: update with your Wanchain address
 - line 38: update with the amount you want to send (in satoshis)
 - line 52: update the path to the keystore file (user => youruser)
 - line 54: update the keystore password
-5. Run the script
+3. Run the script
 ```
 > node btc2wbtc-test.js
+```
+
+## Run bitcoin outbound example
+
+1. Copy and edit Bitcoin outbound example
+```
+$ cp wbtc2btc-complete-manual.js wbtc2btc-test.js
+$ vi wbtc2btc-test.js
+```
+2. Update example script with correct values
+- line 18: confirm wanchain node ip and port are correct
+- line 23: update with the bitcoin RPC rpcuser/rpcpassword
+- line 36: update with your Wanchain address
+- line 37: update with redeemer bitcoin address (legacy address only, but 0 balance is okay)
+- line 38: update with the destination bitcoin address
+- line 39: update with the amount you want to send (in satoshis)
+- line 49: update with the WIF of the redeemer bitcoin address
+```
+> bitcoin-cli -testnet dumpprivkey <address>
+```
+- line 53: update with the amount of miner fee to be spent in the redeem
+- line 56: update the path to the keystore file (user => youruser)
+- line 58: update the keystore password
+3. Run the script
+```
+> node wbtc2btc-test.js
 ```
