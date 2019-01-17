@@ -55,6 +55,9 @@ $ vi btc2wbtc-test.js
 - line 18: confirm wanchain node ip and port are correct
 - line 23: update with the bitcoin RPC rpcuser/rpcpassword
 - line 36: update with revoker bitcoin address (legacy address only, but 0 balance is okay)
+```
+$ bitcoin-cli -testnet getnewaddress '' legacy
+```
 - line 37: update with your Wanchain address
 - line 38: update with the amount you want to send (in satoshis)
 - line 52: update the path to the keystore file (user => youruser)
@@ -76,6 +79,9 @@ $ vi wbtc2btc-test.js
 - line 23: update with the bitcoin RPC rpcuser/rpcpassword
 - line 36: update with your Wanchain address
 - line 37: update with redeemer bitcoin address (legacy address only, but 0 balance is okay)
+```
+$ bitcoin-cli -testnet getnewaddress '' legacy
+```
 - line 38: update with the destination bitcoin address
 - line 39: update with the amount you want to send (in satoshis)
 - line 49: update with the WIF of the redeemer bitcoin address
