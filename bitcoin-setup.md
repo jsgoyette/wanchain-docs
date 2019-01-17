@@ -10,9 +10,9 @@ that the node can be accessed through scripting.
 
 #### Option 2 - Install bitcoind from ppa
 ```bash
-sudo apt-add-repository ppa:bitcoin/bitcoin
-sudo apt-get update
-sudo apt-get install bitcoind
+$ sudo apt-add-repository ppa:bitcoin/bitcoin
+$ sudo apt-get update
+$ sudo apt-get install bitcoind
 ```
 ## Configure
 Use at least the following config settings (`~/.bitcoin/bitcoin.conf`)
@@ -29,11 +29,11 @@ rpcallowip=192.168.0.0/24
 
 #### Start bitcoind
 ```bash
-bitcoind -testnet -daemon
+$ bitcoind -testnet -daemon
 ```
 
 #### Check connection
 Test that you can connect to the Bitcoin node from the command line
 ```bash
-bitcoin-cli -testnet getbestblockhash
+$ bitcoin-cli -testnet getbestblockhash
 ```

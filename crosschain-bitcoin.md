@@ -4,28 +4,33 @@ This document describes the required setup and steps to run the bitcoin integrat
 
 ## Set up Wanchain node
 
-- [Set up Wanchain](./wanchain-setup.md)
+- [Instructions to set up Wanchain node](./wanchain-setup.md)
 
 ## Set up Bitcoin node
 
-- [Set up Bitcoin](./bitcoin-setup.md)
+- [Instructions to set up Bitcoin node](./bitcoin-setup.md)
 
 ## Add testnet funds
 
 ### Wanchain
 
 1. Create new Wanchain account in wallet
-2. Get WAN from faucet
-  - [fixme](fixme)
+```
+$ ./gwan --testnet account new
+```
+2. Get testnet WAN from faucet
+  - [https://faucet1.wanchain.org/](https://faucet1.wanchain.org/)
 
 ### Bitcoin
 
 1. Get new address from GUI wallet or command line
 ```bash
-bitcoin-cli -testnet getnewaddress
+$ bitcoin-cli -testnet getnewaddress
 ```
+2. Get testnet bitcoin from faucet
+  - [https://lnroute.com/testnet-faucets/](https://lnroute.com/testnet-faucets/)
 
 ```bash
-git clone https://github.com/wanchain/wanx
-cd wanx
+$ git clone https://github.com/wanchain/wanx
+$ cd wanx
 ```
