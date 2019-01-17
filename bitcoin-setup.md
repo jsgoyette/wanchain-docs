@@ -18,7 +18,7 @@ $ sudo apt-get install bitcoind
 Use at least the following config settings (`~/.bitcoin/bitcoin.conf`)
 ```
 server=1
-rpcusername=myuser
+rpcuser=myuser
 rpcpassword=mypassword
 txindex=1
 ```
