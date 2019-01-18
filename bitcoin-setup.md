@@ -3,10 +3,10 @@
 These instructions cover how to set up a bitcoind node with RPC enabled, so
 that the node can be accessed programmatically.
 
-Of course there are more ways than what is listed here to obtain the bitcoind
-binary. Below simply lists a couple of the easier ways.
-
 ## Install bitcoind
+
+There are more ways than what is listed here to obtain the bitcoind binary.
+Below simply lists a couple of the easier ways.
 
 #### Option 1 - Install Bitcoin Core
 
