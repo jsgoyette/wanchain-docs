@@ -23,7 +23,7 @@ $ sudo apt-add-repository ppa:bitcoin/bitcoin
 $ sudo apt-get update
 $ sudo apt-get install bitcoind
 ```
-## Configure
+## Configure node settings
 
 Update the bitcoin config file (`~/.bitcoin/bitcoin.conf`) and add the required
 settings to allow RPC connections to the node. Use at least the following
@@ -45,7 +45,7 @@ yourself to be able to RPC connect to the node!
 rpcallowip=192.168.0.0/24
 ```
 
-#### Start bitcoind
+## Start bitcoind
 
 Start the bitcoind daemon in testnet mode.
 
@@ -53,7 +53,7 @@ Start the bitcoind daemon in testnet mode.
 $ bitcoind -testnet -daemon
 ```
 
-#### Check connection
+## Check connection
 
 Test that you can connect to the Bitcoin node from the command line using
 `bitcoin-cli`.
