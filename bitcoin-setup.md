@@ -6,13 +6,13 @@ that the node can be accessed programmatically.
 ## Install bitcoind
 
 There are more ways than what is listed here to obtain the bitcoind binary.
-Below simply lists a couple of the easier ways.
+Below are a couple of the easier ways.
 
 #### Option 1 - Install Bitcoin Core
 
 On Mac, installing the Bitcoin Core package is the simplest way to get the bitcoind binary.
 
-1. Download and install Bitcoin Core [https://bitcoin.org](https://bitcoin.org)
+- Download and install Bitcoin Core ([https://bitcoin.org/en/choose-your-wallet](https://bitcoin.org/en/choose-your-wallet))
 
 #### Option 2 - Install bitcoind from ppa
 
