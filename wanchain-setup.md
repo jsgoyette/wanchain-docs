@@ -1,15 +1,25 @@
-# Set up Wanchain node for development
+# Set up Wanchain gwan node for development
 
 These instructions cover how to set up a Wanchain node with RPC enabled, so
-that the node can be accessed by the console and by web3.
+that the node can be accessed programatically or by the console.
 
-Overall, the steps include getting gwan, running gwan with the correct options,
-and testing that you can connect to the node via RPC. There are some options on
-how to install gwan, but the subsequent steps should all be the same.
+The gwan node that runs when the WanWallet GUI wallet is open does not have RPC
+enabled, and thus it is not sufficient to just open up the WanWallet and use
+its gwan node. When the WanWallet is closed, you can, however, use the gwan
+binary shipped with the wallet to start a node with RPC enabled. Otherwise, if
+you do not have WanWallet installed, you will need to download or build the
+gwan binary.
+
+Overall, the steps below include getting gwan, running gwan with the correct
+options, and testing that you can connect to the node via RPC by starting the
+console.
 
 ## Install and run gwan
 
 #### Option 1 - Wallet
+
+Install the WanWallet GUI wallet and start a testnet Wanchain node using the
+gwan binary that ships with the wallet.
 
 1. Download and install the Wanchain wallet [https://wanchain.org/products](https://wanchain.org/products)
 2. Start the node in testnet mode
@@ -21,6 +31,8 @@ $ ~/.config/WanWalletGui/binaries/Gwan/unpacked/gwan --testnet \
 
 
 #### Option 2 - Pre-built gwan binary
+
+Download a pre-built binary and use it to start a testnet Wanchain node.
 
 1. Download the binary [https://wanchain.org/products](https://wanchain.org/products)
 ```bash
@@ -36,6 +48,9 @@ $ ./gwan --testnet \
 ```
 
 #### Option 3 - Build from source
+
+Download the go-wanchain source code and build the gwan binary from source. Use
+the built binary to start a testnet Wanchain node.
 
 1. Install and configure Golang [https://golang.org/doc/install](https://golang.org/doc/install)
 2. Get and build go-wanchain
@@ -53,9 +68,10 @@ $ make gwan
 
 ## Test connection
 
-Check to see that you can connect to the Wanchain node from the command line.
-Replace the path to gwan with the path that you used above to start the node.
+Check to see that you can connect to the Wanchain node from the command line by
+starting a console.
 
 ```bash
+# Replace the path to gwan with the path that you used when starting the node
 $ ./gwan attach http://localhost:18545
 ```
