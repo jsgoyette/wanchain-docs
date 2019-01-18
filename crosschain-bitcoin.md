@@ -37,9 +37,12 @@ $ bitcoin-cli -testnet getnewaddress
 $ git clone https://github.com/wanchain/wanx
 $ cd wanx
 ```
-2. Install dependencies needed for example
+2. Install dependencies needed for wanx
 ```
 $ npm install
+```
+3. Install dependencies needed for the examples
+```
 $ npm install keythereum node-bitcoin-rpc wanchainjs-tx
 ```
 
@@ -82,7 +85,7 @@ $ vi wbtc2btc-test.js
 ```
 $ bitcoin-cli -testnet getnewaddress '' legacy
 ```
-- line 38: update with the destination bitcoin address
+- line 38: update with the destination bitcoin address where you want the bitcoin to be sent
 - line 39: update with the amount you want to send (in satoshis)
 - line 49: update with the WIF of the redeemer bitcoin address
 ```
