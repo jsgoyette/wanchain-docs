@@ -86,7 +86,7 @@ documentation of the [WanX](https://github.com/wandevs/wanx) repository.
 
 ### Set up nodes
 
-To be able to do our example Bitcoin cross-chain transactions, we will need
+To be able to do our example Bitcoin cross-chain transactions, you will need
 to have access to Wanchain and Bitcoin nodes. You can refer to the following
 intructions to get the nodes set up.
 
@@ -95,9 +95,9 @@ intructions to get the nodes set up.
 
 ### Create accounts
 
-Now that we have Wanchain and Bitcoin nodes set up, we need to create new
-addresses and make sure they are funded. For Wanchain, we can create a new
-address keystore with `gwan`.
+Now with Wanchain and Bitcoin nodes set up, you'll need to create new addresses
+and make sure they are funded. For Wanchain, you can create a new address
+keystore with `gwan`.
 
 ```bash
 $ ./gwan --testnet account new
@@ -110,12 +110,13 @@ create a new keystore file in your Wanchain directory (usually
 will be needed is the path to this keystore and the passphrase used to encrypt
 it.
 
-Now we need to add funds to our Wanchain account. The easiest way to get some
-testnet WAN is to use a faucet, such as this one:
+Now you'll need to add funds to our Wanchain account. The easiest way to get
+some testnet WAN is to use a faucet, such as this one:
 [Wanchain Testnet Faucet](https://faucet1.wanchain.org).
 
-Next you'll need to set up a new Bitcoin address. You can use the `bitcoin-cli`
-command to create a new Bitcoin address.
+Next you'll need to set up a new Bitcoin address as well. You can use the
+`bitcoin-cli` command to create a new Bitcoin address.
+
 ```
 $ bitcoin-cli -testnet getnewaddress
 ```
@@ -277,7 +278,7 @@ revoking.
 $ bitcoin-cli -testnet getnewaddress '' legacy
 ```
 
-Now add the revoker address to our script.
+Now add the revoker address to our `btc-inbound.js` script.
 
 ```javascript
 const revokerAddress = 'mvTfNujpcQwHaefMxfJRix4vhfNBxSFbBe';
@@ -434,9 +435,9 @@ Promise.resolve([]).then(() => {
 
 As you can see, the script starts by generating a new P2SH address
 (`buildHashTimeLockContract`) and sending bitcoin to it (`sendBtc`). The
-`lockTime` and `txid` are saved to `opts`, as they are needed parameters with
-the next step of sending a lock notice contract call on Wanchain
+`lockTime` and `txid` are saved to `opts`, as they are needed parameters in the
+next step where we send a lock notice contract call on Wanchain
 (`buildLockTx`). Once the lock notice is sent, it waits for a response from the
-storeman (`listenLock`). After the Storeman group confirms the lock, it
-then sends a redeem call on Wanchain (`buildRedeemTx`), and then finally waits
-for the Storeman group to confirm the redeem (`listenRedeem`).
+storeman (`listenLock`). After the Storeman group confirms the lock, it then
+sends a redeem call on Wanchain (`buildRedeemTx`), and then finally waits for
+the Storeman group to confirm the redeem (`listenRedeem`).
