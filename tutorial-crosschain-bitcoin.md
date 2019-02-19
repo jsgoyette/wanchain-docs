@@ -1,38 +1,39 @@
 # Tutorial - Making a Bitcoin cross-chain transaction on Wanchain
 
 ## Intro
-One of the main features of Wanchain is the built-out integrations with other
-block chains. Today one can already make mainnet cross-chain transaction on
-Wanchain with Bitcoin, Ethereum, and select ERC-20 tokens.
+One of the main features of Wanchain is its integrations with other
+blockchains. Today one can already make mainnet cross-chain transactions on
+Wanchain, with Bitcoin, Ethereum, and select ERC-20 tokens.
 
-So let's say you wanted to build out an app that utilized Wanchain's cross-chain
-feature. Naturally, you wouldn't want to build your app on top of the Wanchain
-wallets, since they are intended to be used as a GUI and not as an
+So let's say you wanted to build out an app that utilized Wanchain's
+cross-chain feature. Naturally, you would not want to build your app on top of
+the Wanchain wallet, since it is intended to be used as a GUI and not as an
 architectural backend. Instead, you would want to interact programmatically
-with Wanchain, as well as the other chains, using lower-level APIs.
+with Wanchain and the other blockchains using lower-level APIs.
 
 Currently, the easiest way for developers to make cross-chain transactions in
-their code is with the [WanX](https://github.com/wandevs/wanx) npm package. The
+code is with the [WanX](https://github.com/wandevs/wanx) npm package. The
 purpose of this tutorial is to go over making cross-chain transactions with
-WanX, by demonstrating an inbound and an outbound transaction with Bitcoin.
+WanX, by demonstrating an inbound and an outbound Bitcoin cross-chain
+transaction.
 
 ## Cross-chain overview
 
 Before getting started, we need to review some of the basics of how cross-chain
 transactions work on Wanchain. For a full overview of the cross-chain
-implementation, check out [An Overview of the Wanchain Cross-Chain Implementation Model](https://medium.com/wanchain-foundation/an-overview-of-the-wanchain-2-0-cross-chain-implementation-model-c455cfd25664)
+implementation, check out
+[An Overview of the Wanchain Cross-Chain Implementation Model](https://medium.com/wanchain-foundation/an-overview-of-the-wanchain-2-0-cross-chain-implementation-model-c455cfd25664)
 and the offical [Cross-Chain Implementation Reference](./). For our example case of
 Bitcoin, there is also documentation on the WanX repo for making
 [Inbound](https://github.com/wanchain/wanx/blob/dev/docs/btc-inbound.md)
 and [Outbound](https://github.com/wanchain/wanx/blob/dev/docs/btc-outbound.md)
 transactions.
 
-The short version of the story is that there are (usually) four steps needed
-to make a cross-chain transaction. For inbound transactions (converting native
-coin to the corresponding token on Wanchain), the steps are as
-follows.
+The short version of the story is that there are (usually) four steps needed to
+make a cross-chain transaction. For inbound transactions (converting native
+coin to the corresponding token on Wanchain), the steps are as follows.
 
-#### Inbound cross-chain transaction steps
+#### Inbound cross-chain transaction general steps
 1. Make a transaction on the original chain that locks funds with a particular
    smart contract.
 2. Wait for a followup contract call on Wanchain from the Storeman group that
@@ -41,7 +42,7 @@ follows.
 4. Wait for a followup contract call on the original chain from the Storeman
    group that finalizes the transfer.
 
-Since Bitcoin doesn't have smart contracts, the first and last steps are
+Since Bitcoin does not have smart contracts, the first and last steps are
 handled a bit differently for Bitcoin cross-chain transactions. Accordingly, to
 make a Bitcoin inbound transaction, the steps are instead:
 
@@ -55,14 +56,14 @@ make a Bitcoin inbound transaction, the steps are instead:
 Outbound transactions (converting the token on Wanchain back to the
 corresponding native coin) are basically the reverse of inbound transactions,
 but with one important difference: unlike inbound transactions, outbound
-transactions require that a locking fee is sent when the lock is made. Thus,
-the lock for outbound transactions requires that you send the token that you
-would like exchange back to the original asset, as well as a small fee in
-priced in WAN.  The outbound steps are thus as follows.
+transactions require that an outbound fee is sent when the lock is made. Thus,
+the lock process for outbound transactions requires that you not only send the
+token that you would like exchange back to the original asset, but also a small
+fee priced in WAN. The outbound steps are thus as follows.
 
-#### Outbound cross-chain transaction steps
+#### Outbound cross-chain transaction general steps
 1. Make a transaction on Wanchain that locks the tokens and that includes the
-   lock fee in WAN.
+   outbound fee in WAN.
 2. Wait for a followup contract call on the original chain from the Storeman
    group that confirms the lock.
 3. Make a smart contract call on the original chain to redeem the coin.
@@ -74,13 +75,15 @@ slightly different for Bitcoin. Also, the 4th step is not required for the
 Bitcoin integration. For Bitcoin, the steps are thus:
 
 1. Same as above.
-2. Wait for a followup contract call on Wanchain from the Storeman group that confirms the lock.
-3. Make a bitcoin transaction that redeems the bitcoin locked by the Storeman group.
+2. Wait for a followup contract call on Wanchain from the Storeman group that
+   confirms the lock.
+3. Make a bitcoin transaction that redeems the bitcoin locked by the Storeman
+   group.
 
 The steps to make a cross-chain transaction may be a bit confusing given that
-the steps are slightly different for each chain. Just remember that the exact
-inbound and outbound steps are laid out for each integration in the
-documentation of the [WanX](https://github.com/wandevs/wanx) repository.
+the steps are slightly different for each chain. Just remember that the steps
+are all laid out in the documentation of the
+[WanX](https://github.com/wandevs/wanx) repository.
 
 ## Getting set up
 
@@ -95,9 +98,9 @@ intructions to get the nodes set up.
 
 ### Create accounts
 
-Now with Wanchain and Bitcoin nodes set up, you'll need to create new addresses
-and make sure they are funded. For Wanchain, you can create a new address
-keystore with `gwan`.
+Now with Wanchain and Bitcoin nodes set up, you will need to create new
+addresses and make sure they are funded. For Wanchain, you can create a new
+account keystore with `gwan`.
 
 ```bash
 $ ./gwan --testnet account new
@@ -106,33 +109,34 @@ $ ./gwan --testnet account new
 When creating a new account, it should prompt you for a passphrase for
 encrypting the keystore file. Once the passphrase is entered it will then
 create a new keystore file in your Wanchain directory (usually
-`~/.wanchain/testnet/keystore`). For making cross-chain transactions, all that
-will be needed is the path to this keystore and the passphrase used to encrypt
-it.
+`~/.wanchain/testnet/keystore`). For our example cross-chain transactions, all
+that will be needed is the file path to this keystore and the passphrase used
+to encrypt it.
 
-Now you'll need to add funds to our Wanchain account. The easiest way to get
+Now you will need to add funds to our Wanchain account. The easiest way to get
 some testnet WAN is to use a faucet, such as this one:
 [Wanchain Testnet Faucet](https://faucet1.wanchain.org).
 
-Next you'll need to set up a new Bitcoin address as well. You can use the
+If your testnet bitcoin wallet is not yet funded, you will need to create a new
+Bitcoin address as well, and have some testnet coin sent to it. You can use the
 `bitcoin-cli` command to create a new Bitcoin address.
 
 ```
 $ bitcoin-cli -testnet getnewaddress
 ```
 
-Finally, with the new Bitcoin address ready, we just need to add some funds.
-Again, the easiest way to get some testnet bitcoin is to use a faucet, such as
-the ones listed here:
+With the new Bitcoin address in hand, have some testnet bitcoin sent to the
+address. Again, the easiest way to get some testnet bitcoin is to use a faucet,
+such as the ones listed here:
 [https://lnroute.com/testnet-faucets/](https://lnroute.com/testnet-faucets/)
 
 ### Set up for development
 
 At this point you should have a testnet Wanchain node and a testnet Bitcoin
-node running, and you should have a funded Wanchain address and a funded
+node running, and you should have a funded Wanchain account and a funded
 Bitcoin address. With those in place, we are now ready to set up our script to
-do an cross-chain transactions. To get started, let's create a new directory
-and initialize npm in it.
+do cross-chain transactions. To get started, let's create a new directory and
+initialize npm in it.
 
 ```
 $ mkdir crosschain-test
@@ -205,7 +209,7 @@ transaction, which we will call `btc-inbound.js`. To remind you, this script
 will convert bitcoin (BTC) to the bitcoin token on Wanchain (wBTC), and it will
 do so by following the four steps listed above.
 
-To start, let's add the necessary imports to the top of the script.
+To start, add the necessary imports to the top of the script.
 
 **btc-inbound.js**
 ```javascript
@@ -220,7 +224,7 @@ const BigNumber = require('bignumber.js');
 const btcUtils = require('./btc-utils');
 ```
 
-Next, let's set up an RPC connection with the bitcoin node.
+Next, set up an RPC connection with the bitcoin node.
 
 ```javascript
 const btcNode = [ 'localhost', 18332, 'btcuser', 'btcpassword' ];
@@ -229,7 +233,8 @@ bitcoinRpc.init(...btcNode);
 bitcoinRpc.setTimeout(2000);
 ```
 
-Then set up WanX, as well as Web3 for communicating with the Wanchain node.
+Then set up WanX, as well as Web3, which we'll use for communicating with the
+Wanchain node.
 
 ```javascript
 const config = {
@@ -241,8 +246,8 @@ const wanx = new WanX('testnet', config);
 const web3wan = new Web3(new Web3.providers.HttpProvider(config.wanchain.url));
 ```
 
-For the final piece of the setup, let's use keythereum and unlock our Wanchain
-account private key. Make sure to put in the correct Wanchain address, the
+For the final piece of the setup, let's use keythereum and unlock the Wanchain
+account keystore. Make sure to put in the correct Wanchain address, the
 correct path to the keystore file, as well as the correct keystore passphrase.
 
 ```javascript
@@ -269,10 +274,9 @@ type requires certain parameters to be passed within the options, which can be
 deduced from the [WanX Documentation](https://wanchain/wanx).
 
 In the options we need to define the Bitcoin address that will be the revoker
-address, in the case that we need to revoke the transaction. The revoker
-address must be a legacy address, and it does not need to be funded. Thus, for
-the revoker we will create a new legacy bitcoin address for the sole purpose of
-revoking.
+address. The revoker address must be a legacy address, and it does not need to
+be funded. Thus, we will create a new legacy bitcoin address for the sole
+purpose of revoking.
 
 ```bash
 $ bitcoin-cli -testnet getnewaddress '' legacy
@@ -308,16 +312,16 @@ const opts = {
 };
 ```
 
-The options includes the revokerAddress and wanAddress, the amount to be sent
-(210000 satoshis), the addresses of the Storeman group, and a new redeemKey.
-The redeemKey includes two parts, a random string (which is the transaction
-identifier) and the hash of the random string (which is the key needed to
-redeem the token). For the case of Bitcoin, we need the redeemKey hash to be a
-SHA256 hash.
+The options include the revoker address, the Wanchain address, the amount to be
+sent (210000 satoshis), the addresses of the Storeman group, and a new
+redeemKey. The redeemKey includes two parts, a random string (`x`, which is the
+key needed to redeem the token) and the hash of the random string (`xHash`,
+which is the transaction identifier). For the case of Bitcoin, we need the
+redeemKey hash to be a SHA256 hash.
 
 With our transaction options defined, we are finally at the point where we can
 actually start the transaction. The following snippet kicks off the transaction
-and runs through all of the required four steps through a chain of promises.
+and runs through all of the required four steps, using a chain of promises.
 
 ```javascript
 Promise.resolve([]).then(() => {
@@ -433,7 +437,7 @@ Promise.resolve([]).then(() => {
 });
 ```
 
-As you can see, the script starts by generating a new P2SH address
+As you can see, the script starts by generating a new P2SH lock address
 (`buildHashTimeLockContract`) and sending bitcoin to it (`sendBtc`). The
 `lockTime` and `txid` are saved to `opts`, as they are needed parameters in the
 next step where we send a lock notice contract call on Wanchain
@@ -441,3 +445,16 @@ next step where we send a lock notice contract call on Wanchain
 storeman (`listenLock`). After the Storeman group confirms the lock, it then
 sends a redeem call on Wanchain (`buildRedeemTx`), and then finally waits for
 the Storeman group to confirm the redeem (`listenRedeem`).
+
+If everything went well, the Wanchain account used in the `opts` should now
+have 0.0021 wBTC token. The wBTC token is a WRC-20 token, so you can make
+the usual token contract calls, such as `balanceOf`, `transfer`,
+`transferFrom`, etc. Accordingly, you can check the token balance at the
+console.
+
+```bash
+# Attach the console
+$ ./gwan attach http://localhost:18545
+
+>
+```
