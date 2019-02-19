@@ -48,11 +48,11 @@ to any exchange account.
 
 ### Cross-chain
 
-The cross-chain feature of the exchange allows users to "deposit" or
-"withdrawal" Ethereum from their Wanchain account. By clicking on the
-"ETH-WETH" icon, it prompts the user with the amount of Ethereum they want to
-send to their Wanchain account. In later versions of the exchange there was
-also another icon/button for starting the withdrawal.
+The cross-chain feature of the exchange allows users to "deposit" Ethereum into
+their Wanchain account, or "withdrawal" Ethereum from their Wanchain account.
+By clicking on the "ETH-WETH" icon, it prompts the user with the amount of
+Ethereum they want to send to their Wanchain account. In later versions of the
+exchange there was also another icon/button for starting the withdrawal.
 
 NOTE: The demo video does not show MetaMask for the Ethereum cross-chain part.
 The demo was hacked together and instead used a secret backend Ethereum
