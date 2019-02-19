@@ -28,6 +28,7 @@ were different between the two versions. I'll talk about the first version,
 where users trade directly with other users. In the second version, there was a
 hidden taker who would take any submitted order (the video uses this second
 version). With that said, the following steps in the order are:
+
 3. The taker makes an "approve" contract to the token contract for the token
    they want to spend.
 4. Once the approve call succeeds, the exchange backend calls `fulfillOrder`
