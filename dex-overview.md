@@ -54,11 +54,11 @@ The cross-chain feature of the exchange allows users to "deposit" or
 send to their Wanchain account. In later versions of the exchange there was
 also another icon/button for starting the withdrawal.
 
-NOTE: The demo video does not show WanMask for the cross-chain part. The demo
-was hacked together and instead used a secret backend Ethereum account. It
-ideally should have used MetaMask instead (I think at the time there was an
-issue where you couldn't use WanMask and MetaMask at the same time, but that
-issue is now resolved).
+NOTE: The demo video does not show MetaMask for the Ethereum cross-chain part.
+The demo was hacked together and instead used a secret backend Ethereum
+account. It ideally should have used MetaMask instead (I think at the time
+there was an issue where you couldn't use WanMask and MetaMask at the same
+time, but that issue is now resolved).
 
 The process was not really finished, but for an inbound transaction it would
 have worked like this:
